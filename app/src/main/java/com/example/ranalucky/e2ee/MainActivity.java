@@ -2,6 +2,7 @@ package com.example.ranalucky.e2ee;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.isprint.e2eea.client.AxMxE2EEClient;
 
@@ -24,24 +25,29 @@ public class MainActivity extends AppCompatActivity {
         String RPIN = "";
         AxMxE2EEClient e2ee = new AxMxE2EEClient();
         try {
-            RPIN = e2ee.encryptForLogin
-                (
+            RPIN = e2ee.encryptForLogin  (
                         /** Default value*/
                         ALGO_ID_3DES_SHA1, e2eesid, pin, publicKey, serverRandom);
             int retCode = e2ee.getRetCode();
             if(retCode ==0)
             {
                 //successful
+                Toast.makeText(getApplicationContext(),RPIN,Toast.LENGTH_LONG).show();
 
             } else {
                 if(e2ee.isInvalidPin(retCode)){
                     //invalid pin
+                    Toast.makeText(getApplicationContext(),"invalid pin",Toast.LENGTH_LONG).show();
+
                 } else {
                     if (e2ee.isError(retCode)) {
                         // is error
+                        Toast.makeText(getApplicationContext(),"There is a error.",Toast.LENGTH_LONG).show();
+
                     }
                 }}}
                     catch(Exception e){
+                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
                 }
 
 
